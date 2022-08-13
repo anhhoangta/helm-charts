@@ -1,0 +1,13 @@
+---
+image:
+  repository: consensys/quorum-k8s-hooks
+  tag: latest
+  pullPolicy: IfNotPresent
+
+# local / azure
+provider: local
+
+# the number of Validators you want
+deployer:
+  rpcUrl: http://goquorum-node-validator-1.quorum.svc.cluster.local:8545
+  nodeSecretKeyName: goquorum-node-validator-1-keys

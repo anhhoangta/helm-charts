@@ -1,0 +1,117 @@
+image:
+  explorer:
+    repository: consensys/quorum-explorer
+    tag: e175e0b
+    pullPolicy: Always #IfNotPresent
+
+resources:
+  requests:
+    cpu: 1000m
+    memory: 1G
+
+# This contains the quorum-dev-quickstart test accounts but can be changed to the generated member accounts or your own choice
+explorerConfig: |
+  {
+  "algorithm": "qbft",
+  "nodes": [{
+      "name": "validator-1",
+      "client": "goquorum",
+      "rpcUrl": "http://goquorum-node-validator-1.quorum.svc.cluster.local:8545",
+      "privateTxUrl": ""
+    },
+    {
+      "name": "validator-2",
+      "client": "goquorum",
+      "rpcUrl": "http://goquorum-node-validator-2.quorum.svc.cluster.local:8545",
+      "privateTxUrl": ""
+    },
+    {
+      "name": "validator-3",
+      "client": "goquorum",
+      "rpcUrl": "http://goquorum-node-validator-3.quorum.svc.cluster.local:8545",
+      "privateTxUrl": ""
+    },
+    {
+      "name": "validator-4",
+      "client": "goquorum",
+      "rpcUrl": "http://goquorum-node-validator-4.quorum.svc.cluster.local:8545",
+      "privateTxUrl": ""
+    },
+    {
+      "name": "validator-5",
+      "client": "goquorum",
+      "rpcUrl": "http://goquorum-node-validator-5.quorum.svc.cluster.local:8545",
+      "privateTxUrl": ""
+    },
+    {
+      "name": "validator-6",
+      "client": "goquorum",
+      "rpcUrl": "http://goquorum-node-validator-6.quorum.svc.cluster.local:8545",
+      "privateTxUrl": ""
+    },
+    {
+      "name": "validator-7",
+      "client": "goquorum",
+      "rpcUrl": "http://goquorum-node-validator-7.quorum.svc.cluster.local:8545",
+      "privateTxUrl": ""
+    },
+        {
+      "name": "rpc-1",
+      "client": "goquorum",
+      "rpcUrl": "http://goquorum-node-rpc-1.quorum.svc.cluster.local:8545",
+      "privateTxUrl": ""
+    },
+    ]
+  }
+
+explorerEnvConfig: |-
+  QE_BASEPATH="/explorer"
+  QE_CONFIG_PATH="/app/config.json"
+  NODE_ENV=production
+
+  DISABLE_AUTH=true
+
+  NEXTAUTH_URL=testnet.fpt-blockchain-lab.com
+  NEXTAUTH_URL_INTERNAL=testnet.fpt-blockchain-lab.com
+  NEXTAUTH_SECRET=
+  # To generate NEXTAUTH_SECRET: `openssl rand -hex 32` or go to https://generate-secret.now.sh/32
+
+  local_username=
+  local_password=
+
+  GITHUB_ID=
+  GITHUB_SECRET=
+
+  AUTH0_ID=
+  AUTH0_SECRET=
+  AUTH0_DOMAIN=
+
+  FACEBOOK_ID=
+  FACEBOOK_SECRET=
+
+  GOOGLE_ID=
+  GOOGLE_SECRET=
+
+  TWITTER_ID=
+  TWITTER_SECRET=
+
+  GITLAB_CLIENT_ID=
+  GITLAB_CLIENT_SECRET=
+
+  AZURE_AD_CLIENT_ID=
+  AZURE_AD_CLIENT_SECRET=
+  AZURE_AD_TENANT_ID=
+
+  ATLASSIAN_CLIENT_ID=
+  ATLASSIAN_CLIENT_SECRET=
+
+  COGNITO_CLIENT_ID=
+  COGNITO_CLIENT_SECRET=
+  COGNITO_ISSUER=
+
+  OKTA_CLIENT_ID=
+  OKTA_CLIENT_SECRET=
+  OKTA_ISSUER=
+
+  SLACK_CLIENT_ID=
+  SLACK_CLIENT_SECRET=

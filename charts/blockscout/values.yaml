@@ -1,0 +1,25 @@
+---
+image:
+  blockscout:
+    repository: consensys/blockscout
+    tag: v4.1.3-beta
+    pullPolicy: IfNotPresent
+
+
+blockscout: # cpu dependent
+  resources:
+    cpuLimit: 0.7
+    cpuRequest: 0.5
+    memLimit: "2G"
+    memRequest: "1G"
+  port: 4000
+  database_url: "ecto://postgres:postgres@blockscout-postgresql/blockscout?ssl=false"
+  postgres_user: blockscout
+  network: quorum
+  subnetwork: consensys
+  chain_id: 1337
+  coin: eth
+  ethereum_jsonrpc_variant: besu
+  ethereum_jsonrpc_transport: http
+  ethereum_jsonrpc_endpoint: "besu-node-member-1" # service name to be used
+  secret_key_base: "VTIB3uHDNbvrY0+60ZWgUoUBKDn9ppLR8MI4CpRz4/qLyEFs54ktJfaNT6Z221" # change me please

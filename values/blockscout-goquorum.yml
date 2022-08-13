@@ -1,0 +1,23 @@
+---
+image:
+  blockscout:
+    repository: blockscout/blockscout
+    tag: 4.1.5
+    pullPolicy: IfNotPresent
+
+blockscout: # cpu dependent
+  resources:
+    cpuLimit: 0.7
+    cpuRequest: 0.5
+    memLimit: "2G"
+    memRequest: "1G"
+  database_url: "ecto://blockscout:blockscout@postgresql.quorum.svc.cluster.local:5432/blockscout?ssl=false"
+  postgres_user: blockscout
+  network: quorum
+  subnetwork: consensys
+  chain_id: 1337
+  coin: eth
+  ethereum_jsonrpc_variant: geth
+  ethereum_jsonrpc_transport: http
+  ethereum_jsonrpc_endpoint: "goquorum-node-rpc-1.quorum.svc.cluster.local" # service name to be used
+  secret_key_base: "VTIB3uHDNbvrY0+60ZWgUoUBKDn9ppLR8MI4CpRz4/qLyEFs54ktJfaNT6Z221" # change me please

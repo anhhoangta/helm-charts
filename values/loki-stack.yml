@@ -1,0 +1,88 @@
+loki:
+  enabled: true
+  isDefault: true
+  persistence: 
+    enabled: true
+
+promtail:
+  enabled: false
+  config:
+    lokiAddress: http://{{ .Release.Name }}:3100/loki/api/v1/push
+
+fluent-bit:
+  enabled: false
+
+grafana:
+  enabled: false
+  sidecar:
+    datasources:
+      enabled: true
+      maxLines: 1000
+  image:
+    tag: 8.3.5
+
+prometheus:
+  enabled: false
+  isDefault: false
+
+filebeat:
+  enabled: true
+  filebeatConfig:
+    filebeat.yml: |
+      # logging.level: debug
+      filebeat.inputs:
+      - type: container
+        paths:
+          - /var/log/containers/goquorum-node-*.log
+        fields:
+          logtype: goquorum
+        fields_under_root: true   
+        processors:
+        - add_kubernetes_metadata:
+            host: ${NODE_NAME}
+            matchers:
+            - logs_path:
+                logs_path: "/var/log/containers/"
+      output.logstash:
+        hosts: ["logstash-loki-headless:5044"]
+
+logstash:
+  enabled: true
+  image: grafana/logstash-output-loki
+  imageTag: 1.0.1
+
+  logstashConfig:
+    logstash.yml: |
+      http.host: 0.0.0.0
+      xpack.monitoring.enabled: false
+
+  logstashPipeline:
+    logstash.conf: |
+      input {
+        beats {
+          port => 5044
+        }
+      }
+
+      filter {
+        if [kubernetes] {
+          mutate {
+            add_field => {
+              "container" => "%{[kubernetes][container][name]}"
+              "namespace" => "%{[kubernetes][namespace]}"
+              "pod" => "%{[kubernetes][pod][name]}"
+            }
+            replace => { "host" => "%{[kubernetes][node][name]}"}
+          }
+        }
+        mutate {
+          remove_field => ["tags"]
+        }
+      }
+
+      output {
+        loki {
+          url => "http://loki:3100/loki/api/v1/push"
+        }
+        # stdout { codec => rubydebug }
+      }
