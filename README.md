@@ -276,6 +276,7 @@ parameters:
 EOF
 ```
 
+Deploy validators:
 ```bash
 ### Replace value name with the desired environments
 helm install genesis ./charts/goquorum-genesis --namespace quorum --create-namespace --values ./values/genesis-goquorum.test.yml --wait-for-jobs
@@ -288,7 +289,18 @@ helm upgrade --install validator-5 ./charts/goquorum-node --namespace quorum --v
 helm upgrade --install validator-6 ./charts/goquorum-node --namespace quorum --values ./values/validator.yml & \
 helm upgrade --install validator-7 ./charts/goquorum-node --namespace quorum --values ./values/validator.yml
 ```
+Alternative way is using script in `helm-charts/scripts/helm-install-validators.sh`
+```bash
+cd helm-charts/scripts/
+chmod +x helm-install-validators.sh
 
+### Run this command to upgrade 7 validators with static port from 30300 to 30306
+./helm-install-validators.sh
+
+### Run this command to upgrade 7 validators with a specific static port
+./helm-install-validators.sh <port>
+
+```
 ### spin up a quorum and tessera node pair (optional)
 ```bash
 helm install member-1 ./charts/goquorum-node --namespace quorum --values ./values/txnode.yml
