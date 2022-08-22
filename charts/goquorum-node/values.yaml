@@ -55,7 +55,7 @@ node:
     miner:
       threads: 1
       blockPeriod: 5
-    serviceType: ClusterIP
+    serviceType: NodePort
     p2p:
       enabled: true
       addr: "0.0.0.0"
