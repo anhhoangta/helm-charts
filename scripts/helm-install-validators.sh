@@ -1,11 +1,26 @@
 #!/bin/bash
 
-STATIC_PORT=${1:-30300}
+while getopts p:n:i:c:m:s: flag
+do
+    case "${flag}" in
+        p) port=${OPTARG};;
+        n) count=${OPTARG};;
+        i) id_from=${OPTARG};;
+        c) storage_class=${OPTARG};;
+        m) use_service_monitor=${OPTARG};;
+        s) service_type=${OPTARG};;
+    esac
+done
 
-helm upgrade --install validator-1 --set node.goquorum.p2p.port=$STATIC_PORT ../charts/goquorum-node --namespace quorum --values ../values/validator.yml & \
-helm upgrade --install validator-2 --set node.goquorum.p2p.port=$(($STATIC_PORT+1)) ../charts/goquorum-node --namespace quorum --values ../values/validator.yml & \
-helm upgrade --install validator-3 --set node.goquorum.p2p.port=$(($STATIC_PORT+2)) ../charts/goquorum-node --namespace quorum --values ../values/validator.yml & \
-helm upgrade --install validator-4 --set node.goquorum.p2p.port=$(($STATIC_PORT+3)) ../charts/goquorum-node --namespace quorum --values ../values/validator.yml & \
-helm upgrade --install validator-5 --set node.goquorum.p2p.port=$(($STATIC_PORT+4)) ../charts/goquorum-node --namespace quorum --values ../values/validator.yml & \
-helm upgrade --install validator-6 --set node.goquorum.p2p.port=$(($STATIC_PORT+5)) ../charts/goquorum-node --namespace quorum --values ../values/validator.yml & \
-helm upgrade --install validator-7 --set node.goquorum.p2p.port=$(($STATIC_PORT+6)) ../charts/goquorum-node --namespace quorum --values ../values/validator.yml
+STATIC_PORT=${port:-30300}
+NODE_COUNT=${count:-7}
+ID=${id_from:-1}
+SERVICE_TYPE=${service_type:-"ClusterIP"}
+STORAGE_CLASS=${storage_class:-"standard"}
+SERVICE_MONITOR_ENABLED=${use_service_monitor:-true}
+
+lim=$(($NODE_COUNT+$ID-1)) 
+for (( c=$ID; c<=$lim; c++ ))
+do
+    helm upgrade --install validator-"$c" fpt-blc-lab/goquorum-node --set node.goquorum.p2p.port=$(($STATIC_PORT+$c)) --set node.goquorum.serviceType=$SERVICE_TYPE --set storage.storageClass=$STORAGE_CLASS --set node.goquorum.metrics.serviceMonitorEnabled=$SERVICE_MONITOR_ENABLED --namespace quorum --create-namespace --values ../values/validator.yml
+done

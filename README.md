@@ -294,11 +294,18 @@ Alternative way is using script in `helm-charts/scripts/helm-install-validators.
 cd helm-charts/scripts/
 chmod +x helm-install-validators.sh
 
-### Run this command to upgrade 7 validators with static port from 30300 to 30306
 ./helm-install-validators.sh
+Options:
+- p: static port, default: 30300
+- n: number of validator nodes which want to create, default: 7
+- i: the index of the validator at beginning, default: 1
+- c: storage class name, default: standard
+- m: enable service monitoring: true or false, default: true
+- s: service type: ClusterIP or NodePort, default: ClusterIP
 
-### Run this command to upgrade 7 validators with a specific static port
-./helm-install-validators.sh <port>
+### For example:
+### Run this command to upgrade 5 validators with NodePort service type and static port from 30301 to 30305
+./helm-install-validators.sh -n 5 -s NodePort
 
 ```
 ### spin up a quorum and tessera node pair (optional)
