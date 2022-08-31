@@ -37,8 +37,6 @@ spec:
       - name: {{ template "goquorum-node.fullname" . }}-quorum-pre-start-hook
         image: "{{ .Values.image.hooks.repository }}:{{ .Values.image.hooks.tag }}"
         imagePullPolicy: {{ .Values.image.hooks.pullPolicy }}
-        securityContext:
-          runAsUser: 0
         command:
           - /bin/bash
           - -c
