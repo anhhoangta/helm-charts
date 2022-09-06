@@ -33,6 +33,9 @@ storage:
   # NOTE: when you set this to Retain, the volume WILL persist after the chart is delete and you need to manually delete it
   reclaimPolicy: "Delete" # choose from: Delete | Retain 
 
+serviceAccount:
+  autoGenerate: true
+
 node:
   goquorum:
     resources:
