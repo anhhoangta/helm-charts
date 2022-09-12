@@ -473,3 +473,30 @@ curl -X POST -H "Content-Type: application/json" --data '{ "query": "{syncing{st
 ```
 helm upgrade --install lc ./charts/lc --namespace quorum --atomic --debug --dry-run
 ```
+
+
+### Add new ORG
+
+- Install org node
+```
+helm upgrade --install new-org-1 ./charts/goquorum-node  --namespace quorum --values ./values/validator.yml --set storage.storageClass=longhorn --set node.goquorum.serviceType=NodePort
+``` 
+- Get node details
+```
+kubectl get secret goquorum-node-new-org-1-keys -nquorum -ojson | jq -r ".data[\"nodekey.pub\"]" | base64 -d
+kubectl get secret goquorum-node-new-org-1-keys -nquorum -ojson | jq -r ".data[\"accountAdddress\"]" | base64 -d
+```
+
+- Propose addNode, access to validator have network admin account
+```
+kubectl exec -it goquorum-node-validator-1-0 -nquorum -- geth attach /data/quorum/geth.ipc
+```
+```
+quorumPermission.addOrg(<orgId>,<enodeId>,<accountId>,{from: eth.accounts[0]})
+```
+Ref: https://consensys.net/docs/goquorum/en/latest/reference/api-methods/#quorumpermission_addorg
+- approveOrg from > 50% network admins
+```
+quorumPermission.approveOrg(<orgId>,<enodeId>,<accountId>,{from: eth.accounts[0]})
+```
+Ref: https://consensys.net/docs/goquorum/en/latest/reference/api-methods/#quorumpermission_approveorg
