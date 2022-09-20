@@ -23,3 +23,17 @@ subgraph:
   postgrest_connection_url: "postgresql://subgraph:subgraph@postgresql.quorum.svc.cluster.local:5432/subgraph?ssl=false"
   ipfs_endpoint: ipfs-1
   ethereum_jsonrpc_endpoint: goquorum-node-rpc-1
+storage:
+  className: longhorn
+  size: 1Gi
+resources:
+  ipfs:
+    cpuLimit: 1
+    cpuRequest: 0.1
+    memLimit: "2G"
+    memRequest: "1G"
+  subgraph:
+    cpuLimit: 1
+    cpuRequest: 0.1
+    memLimit: "2G"
+    memRequest: "1G"

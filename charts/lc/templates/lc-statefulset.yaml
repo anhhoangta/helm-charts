@@ -66,10 +66,10 @@ spec:
       name: data
     spec:
       accessModes: [ "ReadWriteOnce" ]
-      storageClassName: "longhorn"
+      storageClassName: {{ .Values.storage.className }}
       resources:
         requests:
-          storage: "1Gb"
+          storage: {{ .Values.storage.size }}
   template:
     metadata:
       labels:
@@ -86,11 +86,11 @@ spec:
         imagePullPolicy: {{ .Values.image.ipfs.pullPolicy }}
         resources:
           requests:
-            cpu: 0.1
-            memory: "1G"
+            cpu: "{{ .Values.resources.ipfs.cpuRequest }}"
+            memory: "{{ .Values.resources.ipfs.memRequest }}"
           limits:
-            cpu: 1
-            memory: "2G"
+            cpu: "{{ .Values.resources.ipfs.cpuLimit }}"
+            memory: "{{ .Values.resources.ipfs.memLimit }}"
         volumeMounts:
           - name: ipfs
             mountPath: /data/ipfs
@@ -102,11 +102,11 @@ spec:
         imagePullPolicy: {{ .Values.image.subgraph.pullPolicy }}
         resources:
           requests:
-            cpu: 0.1
-            memory: "1G"
+            cpu: "{{ .Values.resources.subgraph.cpuRequest }}"
+            memory: "{{ .Values.resources.subgraph.memRequest }}"
           limits:
-            cpu: 1
-            memory: "2G"
+            cpu: "{{ .Values.resources.subgraph.cpuLimit }}"
+            memory: "{{ .Values.resources.subgraph.memLimit }}"
         env:
           - name: POSTGRES_URL
             value: {{ .Values.subgraph.postgrest_connection_url | quote }}
