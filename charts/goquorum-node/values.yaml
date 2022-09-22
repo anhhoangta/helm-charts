@@ -59,6 +59,10 @@ node:
       threads: 1
       blockPeriod: 5
     serviceType: ClusterIP
+    qlightServer:
+      enabled: true
+      addr: "0.0.0.0"
+      port: 30305
     p2p:
       enabled: true
       addr: "0.0.0.0"

@@ -41,6 +41,10 @@ spec:
       port: {{ .Values.node.goquorum.p2p.port }}
       targetPort: rlpx
       protocol: TCP
+    - name: qlight-server
+      port: {{ .Values.node.goquorum.qlightServer.port }}
+      targetPort: qlight-server
+      protocol: TCP
     - name: discovery
       port: {{ .Values.node.goquorum.p2p.port }}
       targetPort: discovery
