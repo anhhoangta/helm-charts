@@ -134,40 +134,6 @@ After modifying configmap with node details, you will need to restart the pod to
 kubectl delete pod <quorum-explorer-pod-name>
 ```
 
-### _For GoQuorum:_
-
-Create storageClass with name `quorum-node-storage` and namespace `quorum`. This storage class here use longhorn.
-```
-cat <<EOF | kubectl apply -f -
-kind: StorageClass
-apiVersion: storage.k8s.io/v1
-metadata:
-  name: quorum-node-storage
-  namespace: quorum
-provisioner: driver.longhorn.io
-reclaimPolicy: "Delete"
-allowVolumeExpansion: true
-volumeBindingMode: WaitForFirstConsumer
-parameters:
-  numberOfReplicas: "1"
-  dataLocality: "best-effort"
-  staleReplicaTimeout: "2880" # 48 hours in minutes
-  fromBackup: ""
-  #  diskSelector: "ssd,fast"
-  #  nodeSelector: "storage,fast"
-  #  recurringJobSelector: '[
-  #   {
-  #     "name":"snap",
-  #     "isGroup":true,
-  #   },
-  #   {
-  #     "name":"backup",
-  #     "isGroup":false,
-  #   }
-  #  ]'
-EOF
-```
-
 ### Deploy validators:
 
 ```bash

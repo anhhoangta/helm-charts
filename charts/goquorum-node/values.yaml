@@ -27,7 +27,7 @@ azure:
   subscriptionId: azure-subscriptionId
 
 storage:
-  storageClass: "quorum-node-storage"
+  storageClass: null
   sizeLimit: "5Gi"
   pvcSizeLimit: "5Gi"
   # NOTE: when you set this to Retain, the volume WILL persist after the chart is delete and you need to manually delete it
@@ -93,6 +93,7 @@ node:
       pprofaddr: "0.0.0.0"
       pprofport: 9545
       serviceMonitorEnabled: false
+      serviceMonitorRelease: rancher-monitoring
     privacy:
       url: "http://localhost:9101"
       pubkeysPath: "/tessera"
