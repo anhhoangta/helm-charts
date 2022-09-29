@@ -1,23 +1,36 @@
 ---
 image:
-  blockscout:
-    repository: blockscout/blockscout
-    tag: 4.1.5
-    pullPolicy: IfNotPresent
+  repository: blockscout/blockscout
+  tag: 4.1.8
+  pullPolicy: IfNotPresent
 
-blockscout: # cpu dependent
-  resources:
-    cpuLimit: 0.7
-    cpuRequest: 0.5
-    memLimit: "2G"
-    memRequest: "1G"
-  database_url: "ecto://blockscout:blockscout@postgresql.quorum.svc.cluster.local:5432/blockscout?ssl=false"
-  postgres_user: blockscout
-  network: quorum
-  subnetwork: consensys
-  chain_id: 1337
-  coin: eth
-  ethereum_jsonrpc_variant: geth
-  ethereum_jsonrpc_transport: http
-  ethereum_jsonrpc_endpoint: "goquorum-node-rpc-1.quorum.svc.cluster.local" # service name to be used
-  secret_key_base: "VTIB3uHDNbvrY0+60ZWgUoUBKDn9ppLR8MI4CpRz4/qLyEFs54ktJfaNT6Z221" # change me please
+# blockscout: # cpu dependent
+#   resources:
+#     cpuLimit: 0.7
+#     cpuRequest: 0.5
+#     memLimit: "2G"
+#     memRequest: "1G"
+#   database_url: "ecto://blockscout:blockscout@postgresql.quorum.svc.cluster.local:5432/blockscout?ssl=false"
+#   postgres_user: blockscout
+#   network: quorum
+#   subnetwork: consensys
+#   chain_id: 1337
+#   coin: eth
+#   ethereum_jsonrpc_variant: geth
+#   ethereum_jsonrpc_transport: http
+#   ethereum_jsonrpc_endpoint: "http://1.54.89.17:31440" # service name to be used
+#   secret_key_base: "VTIB3uHDNbvrY0+60ZWgUoUBKDn9ppLR8MI4CpRz4/qLyEFs54ktJfaNT6Z221" # change me please
+
+secretEnv:
+  LOGO: "/images/blockscout_logo.svg"
+  PORT: "4000"
+  DATABASE_URL: "ecto://blockscout:blockscout@postgresql.quorum.svc.cluster.local:5432/blockscout?ssl=false"
+  SUBNETWORK: consensys
+  CHAIN_ID: "6788"
+  COIN_NAME: eth
+  ETHEREUM_JSONRPC_VARIANT: geth
+  ETHEREUM_JSONRPC_TRANSPORT: http
+  ETHEREUM_JSONRPC_HTTP_URL: "http://goquorum-node-validator-1.quorum.svc.cluster.local:8545" # service name to be used
+  JSON_RPC: "http://goquorum-node-validator-1.quorum.svc.cluster.local:8545"
+  SECRET_KEY_BASE: "56NtB48ear7+wMSf0IQuWDAAazhpb31qyc7GiyspBP2vh7t5zlCsF5QDv76chXeN" # change me please
+  RUST_VERIFICATION_SERVICE_URL: "blockscout-smart-contract-verifier.quorum.svc.cluster.local:8043"

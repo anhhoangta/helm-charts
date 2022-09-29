@@ -2,5 +2,8 @@ dependencies:
 - name: postgresql
   repository: https://charts.bitnami.com/bitnami
   version: 10.16.2
-digest: sha256:4dd3203f3c5accb616976649b2656c49f14017e3055ccbcc8b59180d57c3db36
-generated: "2022-08-31T13:44:54.065620684+02:00"
+- name: smart-contract-verifier
+  repository: file://../smart-contract-verifier
+  version: 0.1.0
+digest: sha256:2c5345af4bb4f74505f803ad462393d04517b611f4bb70214c346041b452a3df
+generated: "2022-09-29T15:08:04.878092744+07:00"
