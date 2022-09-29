@@ -18,9 +18,12 @@ jobs:
         run: |
           git config user.name "$GITHUB_ACTOR"
           git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
-          
+
+      # https://github.com/helm/helm/issues/7584#issuecomment-664328353  
+      # https://github.com/helm/chart-releaser-action/issues/74#issuecomment-1206111172
       - name: Helm Deps
         run: |
+          helm plugin add https://github.com/senax/helm-file-repo
           for dir in $(ls -d charts/*/); do
             helm dependency list $dir 2> /dev/null | tail +2 | head -n -1 | awk '{ print "helm repo add " $1 " " $3 }' | while read cmd; do $cmd; done
           done
