@@ -19,4 +19,4 @@ dependencies:
     condition: postgresql.enabled
   - name: smart-contract-verifier
     version: "0.1.0"
-    repository: "file://../smart-contract-verifier"
+    repository: "https://fpt-blockchain-lab.github.io/helm-charts"
