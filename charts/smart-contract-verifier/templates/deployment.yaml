@@ -32,13 +32,23 @@ spec:
               containerPort: {{ .Values.containerPort }}
               protocol: TCP
           livenessProbe:
+            failureThreshold: 3
             httpGet:
               path: /health
               port: http
+            periodSeconds: 60
+            successThreshold: 1
+            timeoutSeconds: 60
+            initialDelaySeconds: 180
           readinessProbe:
+            failureThreshold: 3
             httpGet:
               path: /health
               port: http
+            periodSeconds: 60
+            successThreshold: 1
+            timeoutSeconds: 60
+            initialDelaySeconds: 180
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
