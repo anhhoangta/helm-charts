@@ -16,15 +16,6 @@ cluster:
   reclaimPolicy: Delete # set to either Retain or Delete; note that PVCs and PVs will still exist after a 'helm delete'. Setting to Retain will keep volumes even if PVCs/PVs are deleted in kubernetes. Setting to Delete will remove volumes from EC2 EBS when PVC is deleted
 
 node:
-  besu:
-    envBesuOpts: ""  
-    metrics:
-      serviceMonitorEnabled: true
-    resources:
-      cpuLimit: 1
-      cpuRequest: 0.5
-      memLimit: "2G"
-      memRequest: "1G"
   goquorum:
     metrics:
       serviceMonitorEnabled: true
@@ -35,7 +26,7 @@ node:
       memRequest: "1G"
     serviceType: NodePort
     p2p:
-      nodePort: 31103
+      nodePort: 31101
 
 storage:
   storageClass: longhorn
@@ -43,4 +34,3 @@ storage:
   pvcSizeLimit: "5Gi"
   # NOTE: when you set this to Retain, the volume WILL persist after the chart is delete and you need to manually delete it
   reclaimPolicy: "Delete" # choose from: Delete | Retain 
-  
