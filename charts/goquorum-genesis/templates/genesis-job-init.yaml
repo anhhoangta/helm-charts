@@ -158,7 +158,11 @@ spec:
 
                   # add to the static-nodes
                   pubkey=$(cat $FOLDER_PATH/${f}/nodekey.pub )
+{{- if .Values.quorumFlags.nodePublicIp }}
+                  echo ",\"enode://$pubkey@{{ .Values.quorumFlags.nodePublicIp }}:$((i + 31100))?discport=0\"" >> /generated-config/static-nodes.json
+{{- else }}
                   echo ",\"enode://$pubkey@goquorum-node-validator-$i.{{ .Release.Namespace }}.svc.cluster.local:30303?discport=0\"" >> /generated-config/static-nodes.json
+{{- end }}
 
                   i=$((i+1))
                 fi

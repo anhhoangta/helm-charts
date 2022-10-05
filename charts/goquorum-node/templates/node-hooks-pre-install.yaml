@@ -148,10 +148,13 @@ spec:
             safeWriteSecret {{ template "goquorum-node.fullname" . }}-accountAddress $FOLDER_PATH/member0/accountAddress 
 {{- else }}
             safeWriteSecret {{ template "goquorum-node.fullname" . }} $FOLDER_PATH/member0
-{{- end }}       
+{{- end }}
 
             cat $FOLDER_PATH/member0/nodekey.pub > /tmp/enode
+
+{{- if .Values.quorumFlags.updatePeersConfigMap }}
             update_quorum_peers_configmap
+{{- end }}            
             kubectl create configmap {{ template "goquorum-node.fullname" . }}-address --from-file=address=$FOLDER_PATH/member0/address
             echo "Quorum Completed"
 

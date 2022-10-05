@@ -138,35 +138,17 @@ kubectl delete pod <quorum-explorer-pod-name>
 
 ```bash
 ### Replace value name with the desired environments
-helm install genesis ./charts/goquorum-genesis --namespace quorum --create-namespace --values ./values/genesis-goquorum.test.yml --wait-for-jobs
+helm install genesis fpt-blc-lab/goquorum-genesis --namespace quorum --create-namespace --values ./values/genesis-goquorum.test.yml --wait-for-jobs
 
-helm upgrade --install validator-1 ./charts/goquorum-node --namespace quorum --values ./values/validator.yml & \
-helm upgrade --install validator-2 ./charts/goquorum-node --namespace quorum --values ./values/validator.yml & \
-helm upgrade --install validator-3 ./charts/goquorum-node --namespace quorum --values ./values/validator.yml & \
-helm upgrade --install validator-4 ./charts/goquorum-node --namespace quorum --values ./values/validator.yml & \
-helm upgrade --install validator-5 ./charts/goquorum-node --namespace quorum --values ./values/validator.yml & \
-helm upgrade --install validator-6 ./charts/goquorum-node --namespace quorum --values ./values/validator.yml & \
-helm upgrade --install validator-7 ./charts/goquorum-node --namespace quorum --values ./values/validator.yml
+helm upgrade --install validator-1 fpt-blc-lab/goquorum-node --namespace quorum --values ./values/goquorum-validator-1.yml & \
+helm upgrade --install validator-2 fpt-blc-lab/goquorum-node --namespace quorum --values ./values/goquorum-validator-2.yml & \
+helm upgrade --install validator-3 fpt-blc-lab/goquorum-node --namespace quorum --values ./values/goquorum-validator-3.yml & \
+helm upgrade --install validator-4 fpt-blc-lab/goquorum-node --namespace quorum --values ./values/goquorum-validator-4.yml & \
+helm upgrade --install validator-5 fpt-blc-lab/goquorum-node --namespace quorum --values ./values/goquorum-validator-5.yml & \
+helm upgrade --install validator-6 fpt-blc-lab/goquorum-node --namespace quorum --values ./values/goquorum-validator-6.yml & \
+helm upgrade --install validator-7 fpt-blc-lab/goquorum-node --namespace quorum --values ./values/goquorum-validator-7.yml
 ```
-Alternative way is using script in `helm-charts/scripts/helm-install-validators.sh`
-```bash
-cd helm-charts/scripts/
-chmod +x helm-install-validators.sh
 
-./helm-install-validators.sh
-Options:
-- p: static port, default: 30300
-- n: number of validator nodes which want to create, default: 7
-- i: the index of the validator at beginning, default: 1
-- c: storage class name, default: standard
-- m: enable service monitoring: true or false, default: true
-- s: service type: ClusterIP or NodePort, default: ClusterIP
-
-### For example:
-### Run this command to upgrade 5 validators with NodePort service type and static port from 30301 to 30305
-./helm-install-validators.sh -n 5 -s NodePort
-
-```
 ### spin up a quorum and tessera node pair (optional)
 ```bash
 helm install member-1 ./charts/goquorum-node --namespace quorum --values ./values/txnode.yml
@@ -182,7 +164,7 @@ helm upgrade --install rpc-1 ./charts/goquorum-node --namespace quorum --values 
 
 Generating config
 ```Bash
-helm install enhanced-permission ./charts/goquorum-enhanced-permission --namespace quorum --values ./values/enhanced-permission.yml --wait-for-jobs --atomic --timeout 30s
+helm install enhanced-permission fpt-blc-lab/goquorum-enhanced-permission --namespace quorum --values ./values/enhanced-permission.yml --wait-for-jobs
 ```
 
 Edit `./values/validator.yml`. To turn on copy mounted volumes files into quorum data files. 
@@ -199,13 +181,13 @@ quorumFlags:
 Take turn to validator apply new config to prevent network going down.
 
 ```bash
-helm upgrade --install validator-1 ./charts/goquorum-node --namespace quorum --values ./values/validator.yml --atomic
-helm upgrade --install validator-2 ./charts/goquorum-node --namespace quorum --values ./values/validator.yml --atomic
-helm upgrade --install validator-3 ./charts/goquorum-node --namespace quorum --values ./values/validator.yml --atomic
-helm upgrade --install validator-4 ./charts/goquorum-node --namespace quorum --values ./values/validator.yml --atomic
-helm upgrade --install validator-5 ./charts/goquorum-node --namespace quorum --values ./values/validator.yml --atomic
-helm upgrade --install validator-6 ./charts/goquorum-node --namespace quorum --values ./values/validator.yml --atomic
-helm upgrade --install validator-7 ./charts/goquorum-node --namespace quorum --values ./values/validator.yml --atomic
+helm upgrade --install validator-1 fpt-blc-lab/goquorum-node --namespace quorum --values ./values/goquorum-validator-1.yml --atomic
+helm upgrade --install validator-2 fpt-blc-lab/goquorum-node --namespace quorum --values ./values/goquorum-validator-2.yml --atomic
+helm upgrade --install validator-3 fpt-blc-lab/goquorum-node --namespace quorum --values ./values/goquorum-validator-3.yml --atomic
+helm upgrade --install validator-4 fpt-blc-lab/goquorum-node --namespace quorum --values ./values/goquorum-validator-4.yml --atomic
+helm upgrade --install validator-5 fpt-blc-lab/goquorum-node --namespace quorum --values ./values/goquorum-validator-5.yml --atomic
+helm upgrade --install validator-6 fpt-blc-lab/goquorum-node --namespace quorum --values ./values/goquorum-validator-6.yml --atomic
+helm upgrade --install validator-7 fpt-blc-lab/goquorum-node --namespace quorum --values ./values/goquorum-validator-7.yml --atomic
 ```
 
 ### External Validator

@@ -1,7 +1,7 @@
 ---
 quorumFlags:
   removeGenesisOnDelete: false
-
+  nodePublicIp: 1.54.xx.xx # UPDATE IT
 cluster:
   provider: local  # choose from: local | aws | azure
   cloudNativeServices: false 
@@ -38,6 +38,7 @@ rawGenesisConfig:
     gasLimit: '0x47b760'
     difficulty: '0x1'
     coinbase: '0x0000000000000000000000000000000000000000'
+    nonce: '0x0'
     includeQuickStartAccounts: false # set to true if you would like to use the quorum-dev-quickstart test accounts. This setting will be forced false if cloudNativeServices is set to true which is assuming a prod environment
   blockchain:
     nodes:

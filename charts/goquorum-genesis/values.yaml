@@ -2,6 +2,7 @@
 
 quorumFlags:
   removeGenesisOnDelete: true
+  nodePublicIp: null
 
 cluster:
   provider: local  # choose from: local | aws | azure
