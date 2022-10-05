@@ -18,5 +18,5 @@ dependencies:
     repository: "https://charts.bitnami.com/bitnami"
     condition: postgresql.enabled
   - name: smart-contract-verifier
-    version: "0.1.0"
+    version: "0.1.1"
     repository: "https://fpt-blockchain-lab.github.io/helm-charts"
