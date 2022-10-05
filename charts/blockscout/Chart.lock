@@ -4,6 +4,6 @@ dependencies:
   version: 10.16.2
 - name: smart-contract-verifier
   repository: https://fpt-blockchain-lab.github.io/helm-charts
-  version: 0.1.0
-digest: sha256:4fe400ba672fba6a17a1d10b3d2444364fd5d14109fa31f654a84647652d18f8
-generated: "2022-09-30T00:59:27.37186+07:00"
+  version: 0.1.1
+digest: sha256:07a183085c6e75bf072290bebf2ded0ce159cc3f46339bbeea289f1f2bc9342e
+generated: "2022-10-05T17:21:40.849452456+07:00"
