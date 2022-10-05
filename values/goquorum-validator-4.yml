@@ -33,5 +33,6 @@ node:
       cpuRequest: 0.1
       memLimit: "2G"
       memRequest: "1G"
+    serviceType: NodePort 
     p2p:
       nodePort: 31104
