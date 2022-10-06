@@ -298,7 +298,7 @@ spec:
             --nat extip:$POD_IP \
             --verbosity {{ .Values.node.goquorum.log.verbosity }} \
           {{- if .Values.node.goquorum.rpc.lc.enabled }}
-            --lc
+            --lc \
           {{- end}}
           {{- if .Values.quorumFlags.mine }}
             --istanbul.blockperiod {{ .Values.node.goquorum.miner.blockPeriod }} --mine --miner.threads {{ .Values.node.goquorum.miner.threads }} --miner.gasprice 0 --emitcheckpoints \
