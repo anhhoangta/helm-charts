@@ -202,6 +202,10 @@ spec:
                 key: networkId
           - name: QUORUM_CONSENSUS
             value: istanbul
+          {{- range $name, $value := .Values.node.goquorum.env }}
+          - name: {{ $name }}
+            value: {{ $value }}
+          {{- end }}
 {{- if .Values.quorumFlags.privacy }}
           - name: QUORUM_PTM_URL
             value: "http://{{ include "goquorum-node.fullname" . }}.{{ .Release.Namespace }}.svc.cluster.local:{{ .Values.node.tessera.q2tport }}"
@@ -293,6 +297,9 @@ spec:
           {{- end }}
             --nat extip:$POD_IP \
             --verbosity {{ .Values.node.goquorum.log.verbosity }} \
+          {{- if .Values.quorumFlags.mine }}
+            --lc
+          {{- end}}
           {{- if .Values.quorumFlags.mine }}
             --istanbul.blockperiod {{ .Values.node.goquorum.miner.blockPeriod }} --mine --miner.threads {{ .Values.node.goquorum.miner.threads }} --miner.gasprice 0 --emitcheckpoints \
           {{- end }}

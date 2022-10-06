@@ -39,6 +39,7 @@ serviceAccount:
 
 node:
   goquorum:
+    env:        
     resources:
       cpuLimit: 1
       cpuRequest: 0.1
@@ -71,11 +72,13 @@ node:
       nodePort: 30303
     rpc:
       enabled: true
+      lc:
+        enabled: true
       addr: "0.0.0.0"
       port: 8545
       corsDomain: "*"
       vHosts: "*"
-      api: "admin,db,eth,debug,miner,net,shh,txpool,personal,web3,quorum,istanbul"  
+      api: "admin,db,eth,debug,miner,net,shh,txpool,personal,web3,quorum,istanbul,lc"  
       authenticationEnabled: false
     ws:
       enabled: true
@@ -119,8 +122,8 @@ node:
 
 image:
   goquorum:
-    repository: quorumengineering/quorum
-    tag: 22.7.1
+    repository: fptblockchainlabbot/quorum
+    tag: v22.7.1-fpt.blockchain.lab-0.3.0
   tessera:
     repository: quorumengineering/tessera
     tag: 22.1.1
