@@ -297,7 +297,7 @@ spec:
           {{- end }}
             --nat extip:$POD_IP \
             --verbosity {{ .Values.node.goquorum.log.verbosity }} \
-          {{- if .Values.quorumFlags.mine }}
+          {{- if .Values.node.goquorum.rpc.lc.enabled }}
             --lc
           {{- end}}
           {{- if .Values.quorumFlags.mine }}
