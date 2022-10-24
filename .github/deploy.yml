@@ -34,7 +34,7 @@ production:
 # Automatic deployment to a staging environment on every push to master.
 staging:
   auto_deploy_on: refs/heads/main
-  required_contexts: ["build"]
+#   required_contexts: ["build"]
   environment: staging
   description: 'Staging'
   payload:
