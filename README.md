@@ -38,7 +38,7 @@ aws:
 azure:
   # the script/bootstrap.sh uses the name 'quorum-pod-identity' so only change this if you altered the name.
   identityName: quorum-pod-identity
-  # the clientId of the user assigned managed identity created in the template
+  # the clientId of the user assigned managed identity created in the template.
   identityClientId: azure-clientId
   keyvaultName: azure-keyvault
   # the tenant ID of the key vault
