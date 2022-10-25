@@ -1,18 +1,30 @@
-# .github/workflows/cd.yml
-name: 'Deploy'     # Name of the action.
-on: ['deployment'] # Listen for deployment events.
+# .github/workflows/deploy.yml
+name: Deploy
+on: 
+  push:
+    branches:
+      - master
+    path:
+      - /charts/goquorum-node
 
 jobs:
   deployment:
     runs-on: 'ubuntu-latest'
     steps:
-    - name: 'Checkout'  # Checkout the repository code.
-      uses: 'actions/checkout@v1'
+    - uses: actions/checkout@v1
 
     - name: 'Deploy'
-      uses: 'deliverybot/helm@master'
+      uses: 'deliverybot/helm@v1'
       with:
+        release: 'nginx'
+        namespace: 'default'
+        chart: '/charts/goquorum-node'
         token: '${{ github.token }}'
-        chart: 'app'
+        # values: |
+        #   name: foobar
+        value-files: >-
+        [
+          "values.yaml"
+        ]
       env:
         KUBECONFIG_FILE: '${{ secrets.KUBECONFIG }}'
