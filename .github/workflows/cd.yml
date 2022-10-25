@@ -20,8 +20,6 @@ jobs:
         namespace: 'default'
         chart: '/charts/goquorum-node'
         token: '${{ github.token }}'
-        # values: |
-        #   name: foobar
         value-files: >-
         [
           "values.yaml"
