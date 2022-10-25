@@ -3,7 +3,7 @@ name: Deploy
 on: 
   push:
     branches:
-      - master
+      - main
     path:
       - /charts/goquorum-node
 
