@@ -6,9 +6,21 @@ on:
         required: true
         default: 'dev'
       var_file:
-        description: 'varlue file going to use'
+        description: 'value file going to use'
         required: true
         default: 'values.yml'
+      namespace:
+        description: 'namespace going to deploy'
+        required: true
+        default: 'quorum'
+      image_tag:
+        description: 'image tag to deploy'
+        required: true
+        default: 'v1.1.1'
+      chart_deploy:
+        description: 'which chart to be deployed'
+        required: true
+        default: 'goquorum-node'               
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -27,4 +39,9 @@ jobs:
           mv linux-amd64/helm /usr/local/bin/helm
           helm version
       - name: Lint helm charts
-        run: helm lint ./infra/helm/            
+        run: helm lint ./charts/${{ github.event.inputs.chart_deploy }}/
+      - name: Deploy
+        run: |
+          helm upgrade --install --atomic --timeout 1m rest ./charts/${{ github.event.inputs.chart_deploy }}/ -f ./charts/${{ github.event.inputs.chart_deploy }}/ \
+            --namespace ${{ github.event.inputs.namespace }} --create-namespace \
+            --set image.tag=${{ github.event.inputs.image_tag }}
