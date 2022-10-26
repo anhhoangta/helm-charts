@@ -20,7 +20,11 @@ on:
       chart_deploy:
         description: 'which chart to be deployed'
         required: true
-        default: 'goquorum-node'               
+        default: 'goquorum-node'
+      dry_run:
+        description: 'show result'
+        required: true
+        default: 'false'         
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -44,6 +48,6 @@ jobs:
         run: helm lint ./charts/${{ github.event.inputs.chart_deploy }}/
       - name: Deploy
         run: |
-          helm upgrade --install --atomic --timeout 1m rest ./charts/${{ github.event.inputs.chart_deploy }}/ -f ./charts/${{ github.event.inputs.chart_deploy }}/ \
+          helm upgrade --install  ./charts/${{ github.event.inputs.chart_deploy }}/ -f ./charts/${{ github.event.inputs.chart_deploy }}/ \
             --namespace ${{ github.event.inputs.namespace }} --create-namespace \
             --set image.tag=${{ github.event.inputs.image_tag }}
