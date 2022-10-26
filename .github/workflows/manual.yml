@@ -32,6 +32,7 @@ jobs:
           mkdir -p $HOME/.kube/
           echo "${{ secrets.KUBECONFIG }}" | base64 --decode > $HOME/.kube/config
           chmod 600 $HOME/.kube/config
+          kubectl get node
       - name: Install helm
         run: |
           curl -LO https://get.helm.sh/helm-v3.8.0-linux-amd64.tar.gz
