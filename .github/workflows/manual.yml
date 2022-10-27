@@ -52,6 +52,6 @@ jobs:
         run: helm lint ./charts/${{ github.event.inputs.chart_deploy }}/
       - name: Deploy
         run: |
-          helm upgrade --install ${{ github.event.inputs.release_name }} ./charts/${{ github.event.inputs.chart_deploy }}/ -f ./charts/${{ github.event.inputs.chart_deploy }}/${{ github.event.inputs.var_file }} \
+          helm upgrade --install ${{ github.event.inputs.release_name }} ./charts/${{ github.event.inputs.chart_deploy }}/ -f ./values/${{ github.event.inputs.var_file }} \
             --namespace ${{ github.event.inputs.namespace }} --create-namespace \
             --set image.tag=${{ github.event.inputs.image_tag }}
