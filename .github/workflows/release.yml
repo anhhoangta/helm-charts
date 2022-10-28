@@ -32,7 +32,6 @@ jobs:
         uses: helm/chart-releaser-action@v1.4.1
         with:
           charts_dir: charts
-          config: cr.yaml
           charts_repo_url: https://fpt-blockchain-lab.github.io/helm-charts
         env:
           CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
