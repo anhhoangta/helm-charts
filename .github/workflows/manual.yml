@@ -2,26 +2,33 @@ on:
   workflow_dispatch:
     inputs:
       k8s_cluster:
-        description: 'cluster k8s to be deployed on'
+        type: choice
+        description: Select a cluster to deploy
         required: true
-        default: 'dev'
+        options:
+        - dev
       var_file:
         description: 'value file going to use'
         required: true
         default: 'values.yml'
       namespace:
-        description: 'namespace going to deploy'
+        type: choice
+        description: Select a namespace to deploy
         required: true
-        default: 'quorum'
+        options:
+        - quorum
       image_tag:
         description: 'image tag to deploy'
         required: true
         default: 'v1.1.1'
       chart_deploy:
-        description: 'which chart to be deployed'
+        type: choice
+        description: Select chart to be deployed
         required: true
-        default: 'goquorum-node'
+        options:
+        - goquorum-node
       dry_run:
+        type: boolean
         description: 'dryrun'
         required: true
         default: 'false'
