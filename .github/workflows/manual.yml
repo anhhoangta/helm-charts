@@ -8,9 +8,11 @@ on:
         options:
         - dev
       var_file:
-        description: 'value file going to use'
+        type: choice
+        description: 'Select value file to deploy'
         required: true
-        default: 'values.yml'
+        options:
+        - goquorum-validator.yml
       namespace:
         type: choice
         description: Select a namespace to deploy
